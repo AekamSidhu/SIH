@@ -75,12 +75,14 @@
   padding: 0.5rem 0;
   transition: all 0.3s ease;
   border-bottom: 2px solid transparent;
+    outline: none;
 }
 
 .nav-link:hover,
 .nav-link.active {
   color: #16a34a;
   border-bottom-color: #16a34a;
+    outline: none;
 }
 
 .emergency-btn {

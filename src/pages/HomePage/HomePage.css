@@ -1,9 +1,10 @@
+
 .home-page-bg {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   z-index: -1;
   background: url('../../assets/my-bg.jpg') center center/cover no-repeat;
   filter: brightness(0.7) blur(2px);
@@ -16,7 +17,7 @@
 }
 
 .home-page {
-  min-height: 60vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,8 +35,14 @@
 }
 
 .home-main-content {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   background: rgba(0, 0, 0, 0.45);
-  width: 1000px;
+    align-items: center;
+  width: 100vw;
+    height: 76vh;
   border-radius: 24px;
   padding: 2.5rem 2rem;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
@@ -45,14 +52,19 @@
 }
 
 .home-main-content h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
+  font-size: 6rem;
+  font-weight: 400;
   margin-bottom: 1rem;
   letter-spacing: 1.5px;
   line-height: 1.1;
   text-shadow: 0 4px 24px rgba(0,0,0,0.3);
   color: #43e97b;
   animation: text-pop 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-main-content h2 {
+    font-size: 1.8rem;
+    font-weight: 400;
 }
 
 @keyframes text-pop {
@@ -70,57 +82,109 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.13);
 }
 
-.about-section {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 2.5rem 0 2rem 0;
-  width: 100%;
+.about-section {  position: relative;
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    margin-top: -80px;
+    padding-top: 60px;
+    width: 100vw;
+    height: 100vh;
+    left: 0px;
+    top: 95vh;
+    position: absolute;
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.15);
+    z-index: 2;
+    transition: margin-top 0.6s ease, box-shadow 0.6s ease;
 }
-
-.about-content {
-  background: rgba(0, 0, 0, 0.35);
-  border-radius: 18px;
-  padding: 2rem 2rem 1.5rem 2rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
-  max-width: 700px;
-  width: 100%;
-  color: #fff;
+.about-content{
+    position: relative;
+    top: 0px;
 }
-
 .about-content h2 {
   font-size: 1.4rem;
   font-weight: 700;
   margin-top: 1.2rem;
   margin-bottom: 0.7rem;
-  color: #38f9d7;
+  color: black;
+    font-weight: 400;
+    font-size: 40px;
   letter-spacing: 1px;
   text-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
-
-.about-content ul {
-  margin-bottom: 1.2rem;
-  padding-left: 1.2rem;
-  text-align: left;
+.about-content h3{
+    font-size: 1.3rem;
+    font-weight: 200;
+    margin-top: 0.4rem;
+    color: black;
+}
+.kv{
+    position: relative;
+    top: 1rem;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
 }
 
-.about-content li {
-  font-size: 1.08rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.6;
-  position: relative;
-  padding-left: 1.2em;
+.kv-but{
+    height: 50px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    background-color: mediumseagreen;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 400;
+}
+.kv-but img{
+    height: 2rem;
 }
 
-.about-content li::before {
-  content: "•";
-  color: #43e97b;
-  position: absolute;
-  left: 0;
-  font-size: 1.2em;
-  top: 0.1em;
+.cards{
+    display: flex;
+    justify-content: center;
+    height: 250px;
+    width: 100vw;
+    gap: 5%;
+    position: relative;
+    top: 15%;
+}
+.stats{
+    background-color: #16a34a;
+    height: 190px;
+    position: relative;
+    top: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    background: linear-gradient(
+            to top left,          /* direction: bottom-right → top-left */
+            #009865,              /* dark green (bottom-right) */
+            #00a73e               /* light green (top-left) */
+    );
 }
 
+.footer{
+    background-color: #101727;
+    height: 100px;
+    position: relative;
+    top: 249px;
+}
+
+.stats-content h1{
+    font-size: 2.8rem;
+    font-weight: 350;
+    color: white;
+    padding: 0px;
+    margin: 0;
+}
+.stats-content h2{
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 100;
+    margin: 0;
+}
 @media (max-width: 700px) {
   .home-main-content, .about-content {
     padding: 1.2rem 0.5rem;
