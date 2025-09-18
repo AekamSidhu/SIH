@@ -1,0 +1,39 @@
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 100px;
+    height: 500px;
+    width: 600px;
+    border: 2px dotted white;
+    border-radius: 12px; /* optional rounded corners */
+}
+
+/* Hide the native file input */
+.img-container input[type="file"] {
+    display: none;
+}
+
+/* The label acts as the button */
+.file-upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 30%;  /* adjust size as needed */
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.file-upload-btn img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.4);
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.file-upload-btn:hover img {
+    filter: brightness(1);
+    transform: scale(1.05);
+}

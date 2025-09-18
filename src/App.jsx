@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage/HomePage';
 import ChatbotSection from './pages/ChatbotSection/ChatbotSection';
 import Footer from './components/Footer/Footer';
 import './App.css';
+import CropPrediction from "./pages/DiseaseDetection/CropPrediction";
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -45,8 +46,7 @@ const App = () => {
         )}
         {activeSection === 'disease-detection' && (
           <div className="page-placeholder">
-            <h1>Disease Detection System</h1>
-            <p>Disease detection functionality would be integrated here</p>
+            <CropPrediction></CropPrediction>
           </div>
         )}
       </main>
