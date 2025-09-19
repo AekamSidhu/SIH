@@ -1,17 +1,18 @@
 import { useState } from "react";
 import "../DiseaseDetection/CropPrediction.css";
 
-export default function CropPrediction({ activeSection }) {
+export default function CropPrediction() {
     const [selectedFile, setSelectedFile] = useState(null);
+    const [preview, setPreview] = useState(null);
     const [result, setResult] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            console.log("File selected:", file);   // ✅ debug
             setSelectedFile(file);
             setResult(null);
+            setPreview(URL.createObjectURL(file));
         }
     };
 
@@ -20,10 +21,7 @@ export default function CropPrediction({ activeSection }) {
             alert("Please select a file first");
             return;
         }
-
-        console.log("Uploading file:", selectedFile.name); // ✅ debug
         setLoading(true);
-
         const formData = new FormData();
         formData.append("file", selectedFile);
 
@@ -32,20 +30,10 @@ export default function CropPrediction({ activeSection }) {
                 method: "POST",
                 body: formData,
             });
-
-            console.log("Response status:", response.status); // ✅ debug
-
-            if (!response.ok) {
-                const text = await response.text();
-                console.error("Server returned error:", text); // ✅ debug
-                throw new Error(`HTTP ${response.status}`);
-            }
-
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
-            console.log("Response JSON:", data); // ✅ debug
             setResult(data);
-        } catch (error) {
-            console.error("Upload error:", error); // ✅ debug
+        } catch {
             setResult({ error: "Something went wrong!" });
         } finally {
             setLoading(false);
@@ -53,31 +41,62 @@ export default function CropPrediction({ activeSection }) {
     };
 
     return (
-        <div>
-            <div className="img-container">
-                <input type="file" id="fileInput" onChange={handleFileChange} />
-                <label htmlFor="fileInput" className="file-upload-btn">
-                    <img src="./cam.svg" alt="Upload" />
-                </label>
+        <div className="crop-container">
+            {/* Left: White window with image preview */}
+            <div className="left-pane">
+                <div className="white-window">
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="hidden-input"
+                    />
+
+                    {!preview ? (
+                        <label htmlFor="fileInput" className="upload-trigger">
+                            <img src="./cam.svg" alt="Upload" className="camera-icon" />
+                            <p>Click to choose an image</p>
+                        </label>
+                    ) : (
+                        <img
+                            src={preview}
+                            alt="Preview"
+                            className="full-preview"
+                            onClick={() => document.getElementById("fileInput").click()}
+                        />
+                    )}
+                </div>
+
+                {selectedFile && (
+                    <button
+                        onClick={handleUpload}
+                        className="predict-btn"
+                        disabled={loading}
+                    >
+                        {loading ? "Predicting…" : "Predict"}
+                    </button>
+                )}
             </div>
 
-            {selectedFile && (
-                <div style={{ textAlign: "center", marginTop: "20px" }}>
-                    <p>Selected: {selectedFile.name}</p>
-                    <button onClick={handleUpload} className="kv-but">
-                        {loading ? "Uploading..." : "Upload"}
-                    </button>
-                </div>
-            )}
-
-            {result && (
-                <div className="result-container" style={{ marginTop: "30px", textAlign: "center" }}>
-                    <h3>Result:</h3>
-                    <pre style={{ background: "#f4f4f4", padding: "1rem", borderRadius: "12px" }}>
-            {JSON.stringify(result, null, 2)}
-          </pre>
-                </div>
-            )}
+            {/* Right: Stats */}
+            <div className="right-pane">
+                {result ? (
+                    <div className="stats-card">
+                        <h2 className="stat-title">Prediction</h2>
+                        <p className="stat-item">
+                            <strong>Class:</strong> {result.predicted_class}
+                        </p>
+                        <p className="stat-item">
+                            <strong>Confidence:</strong> {result.confidence}
+                        </p>
+                    </div>
+                ) : (
+                    <p className="placeholder-text">
+                        Upload an image to view prediction details.
+                    </p>
+                )}
+            </div>
         </div>
     );
 }
