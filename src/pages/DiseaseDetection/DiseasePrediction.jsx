@@ -114,7 +114,7 @@ export default function CropDiseasePredictionPage() {
         formData.append("file", imageFile);
 
         try {
-            const response = await fetch("http://localhost:8000/predict/", {
+            const response = await fetch("http://localhost:8000/predict_disease/", {
                 method: "POST",
                 body: formData,
             });

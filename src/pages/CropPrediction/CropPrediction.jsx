@@ -104,7 +104,7 @@ export default function CropRecommendationPage() {
         setSummary(null);
 
         try {
-            const response = await axios.post("http://localhost:8000/predict", {
+            const response = await axios.post("http://localhost:8000/predict_crop", {
                 N: parseFloat(formData.N),
                 P: parseFloat(formData.P),
                 K: parseFloat(formData.K),
