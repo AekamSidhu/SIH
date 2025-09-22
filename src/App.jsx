@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage/HomePage';
 import ChatbotSection from './pages/ChatbotSection/ChatbotSection';
 import Footer from './components/Footer/Footer';
 import './App.css';
-import CropPrediction from "./pages/DiseaseDetection/CropPrediction";
+import CropPrediction from "./pages/DiseaseDetection/DiseasePrediction";
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -50,6 +50,7 @@ const App = () => {
           </div>
         )}
       </main>
+
     </div>
   );
 };
