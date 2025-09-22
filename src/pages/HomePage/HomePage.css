@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 90vh;
-  z-index: -1;
+  z-index: 1;
   background: url('../../assets/my-bg.jpg') center center/cover no-repeat;
   filter: brightness(0.7) blur(2px);
   animation: bg-fade-in 1.5s ease;
@@ -63,12 +63,12 @@
 
 .home-main-content h1 {
   font-size: 6rem;
-  font-weight: 400;
+  font-weight: 350;
   margin-bottom: 1rem;
   letter-spacing: 1.5px;
   line-height: 1.1;
   text-shadow: 0 4px 24px rgba(0,0,0,0.3);
-  color: #43e97b;
+  color: white;
   animation: text-pop 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

@@ -6,6 +6,7 @@ import ChatbotSection from './pages/ChatbotSection/ChatbotSection';
 import Footer from './components/Footer/Footer';
 import './App.css';
 import CropPrediction from "./pages/DiseaseDetection/DiseasePrediction";
+import CropRecommendationPage from "./pages/CropPrediction/CropPrediction";
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -40,8 +41,7 @@ const App = () => {
         {activeSection === 'chatbot' && <ChatbotSection />}
         {activeSection === 'crop-prediction' && (
           <div className="page-placeholder">
-            <h1>Crop Prediction System</h1>
-            <p>Crop prediction functionality would be integrated here</p>
+            <CropRecommendationPage></CropRecommendationPage>
           </div>
         )}
         {activeSection === 'disease-detection' && (
