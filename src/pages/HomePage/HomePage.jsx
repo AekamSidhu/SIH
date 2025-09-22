@@ -75,11 +75,11 @@ const HomePage = () => {
                         advice. Traditional one-size-fits-all advisories can’t address
                         each farm’s specific needs, and many farmers miss out on valuable
                         insights or government benefits because records aren’t maintained.
-                        Krishi Sakhi bridges this gap by acting as a digital farming companion.
+                        Krishi Vaani bridges this gap by acting as a digital farming companion.
                         It understands each farmer’s land, crops, and local conditions,
                         offers real-time Malayalam voice or text guidance, tracks daily activities,
                         and delivers proactive alerts—from weather warnings to market trends.
-                        By combining AI with local knowledge, Krishi Sakhi empowers farmers
+                        By combining AI with local knowledge, Krishi Vaani empowers farmers
                         to make smarter decisions, improve yields, and build a more sustainable future.
                         </p>
                     </div>
