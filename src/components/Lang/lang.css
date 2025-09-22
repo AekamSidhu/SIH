@@ -1,0 +1,8 @@
+.lang-toggle{
+    background-color: #16a34a;
+    outline: none;
+    border: none;
+}
+.lang-toggle:focus{
+    outline: none;
+}

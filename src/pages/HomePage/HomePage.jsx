@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./HomePage.css";
 import Card from "../../components/Cards/Card";
 import { useTranslation } from "react-i18next";
+import {Phone, Upload} from "lucide-react";
 
 const HomePage = () => {
+
     const [blurPx, setBlurPx] = useState(0);
     const { t } = useTranslation();
 
@@ -33,15 +35,9 @@ const HomePage = () => {
                     <h2 style={{ filter: `opacity(${1 - 0.2 * blurPx})` }}>
                         {t("home.subtitle")}
                     </h2>
-                    <div className="kv" style={{ filter: `opacity(${1 - 0.2 * blurPx})` }}>
-                        <button className="kv-but">
-                            <img src="./brain.svg" alt="" />
-                            {t("home.start")}
-                        </button>
-                        <button className="kv-but">
-                            <img src="./message.svg" alt="" />
-                            {t("home.chat")}
-                        </button>
+                    <div className="hero-buttons">
+                        <button className="hero-btn"><Upload size={20}/> {t('diseasePrediction.hero.start')}</button>
+                        <button className="hero-btn"><Phone size={20}/> {t('diseasePrediction.hero.help')}</button>
                     </div>
                 </div>
             </section>
