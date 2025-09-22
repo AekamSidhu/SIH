@@ -1,4 +1,10 @@
 
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff; /* fallback */
+  overflow-x: hidden; /* avoid horizontal scroll */
+}
 
 /* ==============================
    Background
@@ -15,8 +21,6 @@
   z-index: -1;
   background: url('../../assets/my-bg.jpg') center center/cover no-repeat;
   animation: bg-fade-in 1.5s ease;
-  min-width: 1860px;
-  margin-left: -35px;
 }
 
 
