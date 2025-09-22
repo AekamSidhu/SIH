@@ -1,0 +1,30 @@
+{
+  "home": {
+    "title": "Welcome to Krishi Vaani",
+    "subtitle": "Always available, Always learning, Always farmer first",
+    "start": "Start Crop Analysis",
+    "chat": "Chat With Expert",
+    "aboutTitle": "About Krishi Vaani",
+    "aboutSubtitle": "Empowering farmers with cutting-edge AI technology and expert guidance",
+    "cards": {
+      "mobile": {
+        "title": "Mobile-First Platform",
+        "info": "AI-powered advisory platform, accessible via mobile app in regional language (Malayalam-first)."
+      },
+      "multi": {
+        "title": "Multi-Modal Support",
+        "info": "Handles text, voice, and image queries (e.g., diseased crop photo) with advanced AI processing."
+      },
+      "expert": {
+        "title": "Expert Network",
+        "info": "Connect with agricultural experts and get personalized advice for your specific farming needs."
+      }
+    },
+    "stats": {
+      "farmers": "Active Farmers",
+      "accuracy": "Accuracy Rate",
+      "support": "Support Available",
+      "crops": "Crop Types"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Phone, Menu, X, Leaf } from 'lucide-react';
 import './Navbar.css';
+import LanguageToggle from "../Lang/LanguageToggle";
 
 const Navbar = ({ activeSection, navigateToSection, isScrolled, isMenuOpen, setIsMenuOpen }) => {
   return (
@@ -12,6 +13,7 @@ const Navbar = ({ activeSection, navigateToSection, isScrolled, isMenuOpen, setI
               <div className="logo-icon">
                 <Leaf className="w-8 h-8" />
               </div>
+                <LanguageToggle></LanguageToggle>
               <div className="logo-text">
                 <span className="brand-name">Krishi Vaani</span>
                 <span className="brand-tagline">कृषि वाणी</span>

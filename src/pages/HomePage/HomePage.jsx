@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./HomePage.css";
 import Card from "../../components/Cards/Card";
+import { useTranslation } from "react-i18next";
 
 const HomePage = () => {
-    // store blur intensity in pixels
     const [blurPx, setBlurPx] = useState(0);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const handleScroll = () => {
             const y = window.scrollY;
-
-            // Map scroll distance to blur value
-            const maxScroll = 400; // how far until max blur
-            const maxBlur = 8;     // maximum blur in px
-            const newBlur = Math.min((y / maxScroll) * maxBlur, maxBlur);
-
-            setBlurPx(newBlur);
+            const maxScroll = 400;
+            const maxBlur = 8;
+            setBlurPx(Math.min((y / maxScroll) * maxBlur, maxBlur));
         };
-
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
@@ -27,22 +23,24 @@ const HomePage = () => {
             <div className="home-page-bg"></div>
 
             <section className="home-page">
-                {/* Apply blur dynamically */}
                 <div
                     className="home-main-content"
                     style={{ filter: `blur(${blurPx}px)` }}
                 >
-                    <h1 style={{ filter: `opacity(${1-0.2*blurPx})` }}>Welcome to Krishi Vaani</h1>
-                    <h2 style={{ filter: `opacity(${1-0.2*blurPx})` }}>Always available, Always learning, Always farmer first</h2>
-                    <div className="kv"
-                         style={{ filter: `opacity(${1-0.2*blurPx})` }}>
+                    <h1 style={{ filter: `opacity(${1 - 0.2 * blurPx})` }}>
+                        {t("home.title")}
+                    </h1>
+                    <h2 style={{ filter: `opacity(${1 - 0.2 * blurPx})` }}>
+                        {t("home.subtitle")}
+                    </h2>
+                    <div className="kv" style={{ filter: `opacity(${1 - 0.2 * blurPx})` }}>
                         <button className="kv-but">
                             <img src="./brain.svg" alt="" />
-                            Start Crop Analysis
+                            {t("home.start")}
                         </button>
                         <button className="kv-but">
                             <img src="./message.svg" alt="" />
-                            Chat With Expert
+                            {t("home.chat")}
                         </button>
                     </div>
                 </div>
@@ -50,51 +48,44 @@ const HomePage = () => {
 
             <section className="about-section">
                 <div className="about-content">
-                    <h2>About Krishi Vaani</h2>
-                    <h3>
-                        Empowering farmers with cutting-edge AI technology and expert
-                        guidance
-                    </h3>
+                    <h2>{t("home.aboutTitle")}</h2>
+                    <h3>{t("home.aboutSubtitle")}</h3>
 
                     <div className="cards">
                         <Card
-                            title="Mobile-First Platform"
+                            title={t("home.cards.mobile.title")}
                             image="./mob.svg"
-                            info="AI-powered advisory platform, accessible via mobile app in regional language (Malayalam-first)."
+                            info={t("home.cards.mobile.info")}
                         />
                         <Card
-                            title="Multi-Modal Support"
+                            title={t("home.cards.multi.title")}
                             image="./cam.svg"
-                            info="Handles text, voice, and image queries (e.g., diseased crop photo) with advanced AI processing."
+                            info={t("home.cards.multi.info")}
                         />
                         <Card
-                            title="Expert Network"
+                            title={t("home.cards.expert.title")}
                             image="./web.svg"
-                            info="Connect with agricultural experts and get personalized advice for your specific farming needs."
+                            info={t("home.cards.expert.info")}
                         />
                     </div>
 
                     <div className="stats">
                         <div className="stats-content">
                             <h1>10K+</h1>
-                            <h2>Active Farmers</h2>
+                            <h2>{t("home.stats.farmers")}</h2>
                         </div>
                         <div className="stats-content">
                             <h1>95%</h1>
-                            <h2>Accuracy Rate</h2>
+                            <h2>{t("home.stats.accuracy")}</h2>
                         </div>
                         <div className="stats-content">
                             <h1>24/7</h1>
-                            <h2>Support Available</h2>
+                            <h2>{t("home.stats.support")}</h2>
                         </div>
                         <div className="stats-content">
                             <h1>50+</h1>
-                            <h2>Crop Types</h2>
+                            <h2>{t("home.stats.crops")}</h2>
                         </div>
-                    </div>
-
-                    <div className="footer">
-
                     </div>
                 </div>
             </section>

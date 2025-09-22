@@ -3,6 +3,7 @@ import { Leaf, Thermometer, Droplets, Sun, Wind, Phone } from 'lucide-react';
 import './CropPrediction.css';
 import axios from "axios";
 import { GoogleGenAI } from "@google/genai";
+import { useTranslation } from "react-i18next";
 
 const ai = new GoogleGenAI({ apiKey: "AIzaSyCAMWZbq1AsDu4qYGH_Gwntio7f9qIljL8" });
 
@@ -16,6 +17,7 @@ async function askGemini(prompt) {
 }
 
 export default function CropRecommendationPage() {
+    const { t } = useTranslation();
     const [blurPx, setBlurPx] = useState(0);
     const [formData, setFormData] = useState({
         N: "", P: "", K: "",
@@ -46,7 +48,7 @@ export default function CropRecommendationPage() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Fetch weather data based on user's location
+    // Fetch weather data
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (position) => {
@@ -58,32 +60,25 @@ export default function CropRecommendationPage() {
                     const hourly = response.data.hourly;
                     const lastIndex = hourly.time.length - 1;
 
-                    const temperature = hourly.temperature_2m[lastIndex];
-                    const humidity = hourly.relative_humidity_2m[lastIndex];
-                    const windspeed = hourly.wind_speed_10m[lastIndex];
-                    const rainfall = hourly.precipitation ? hourly.precipitation[lastIndex] : "0";
-
                     setWeatherData({
-                        temperature,
-                        humidity,
-                        windspeed,
+                        temperature: hourly.temperature_2m[lastIndex],
+                        humidity: hourly.relative_humidity_2m[lastIndex],
+                        windspeed: hourly.wind_speed_10m[lastIndex],
                         sunshine: "N/A",
-                        rainfall
+                        rainfall: hourly.precipitation ? hourly.precipitation[lastIndex] : "0"
                     });
 
                     setFormData(prev => ({
                         ...prev,
-                        temperature,
-                        humidity,
-                        rainfall
+                        temperature: hourly.temperature_2m[lastIndex],
+                        humidity: hourly.relative_humidity_2m[lastIndex],
+                        rainfall: hourly.precipitation ? hourly.precipitation[lastIndex] : "0"
                     }));
 
                 } catch (error) {
                     console.error("Error fetching weather:", error);
                 }
-            }, (err) => {
-                console.error("Geolocation error:", err);
-            });
+            }, (err) => console.error("Geolocation error:", err));
         }
     }, []);
 
@@ -94,7 +89,7 @@ export default function CropRecommendationPage() {
     const handlePrediction = async () => {
         for (let key in formData) {
             if (!formData[key]) {
-                alert(`Please fill ${key}`);
+                alert(t("cropRecommendation.fillField", { field: key }));
                 return;
             }
         }
@@ -117,17 +112,14 @@ export default function CropRecommendationPage() {
             const recommendedCrop = response.data.recommended_crop;
             setPrediction(recommendedCrop);
 
-            // Generate Gemini summary explaining relevance
             setSummaryLoading(true);
-            const prompt = `Explain why "${recommendedCrop}" is the best crop choice based on these soil and weather conditions: 
-            N=${formData.N}, P=${formData.P}, K=${formData.K}, temperature=${formData.temperature}°C, humidity=${formData.humidity}%, 
-            ph=${formData.ph}, rainfall=${formData.rainfall}mm. Explain in simple terms for a farmer why this recommendation makes sense and make the answer short 100-150 words.`;
+            const prompt = `${t("cropRecommendation.geminiPrompt", { crop: recommendedCrop, ...formData })}`;
             const geminiResp = await askGemini(prompt);
             setSummary(geminiResp);
 
         } catch (error) {
             console.error("Error:", error);
-            setPrediction("Prediction failed. Please try again.");
+            setPrediction(t("cropRecommendation.error"));
         } finally {
             setLoading(false);
             setSummaryLoading(false);
@@ -138,16 +130,16 @@ export default function CropRecommendationPage() {
         <div className="crop-disease-page-wrapper">
             {/* Hero */}
             <section className="hero-main-content" style={{ filter: `blur(${blurPx}px)` }}>
-                <h1 style={{ opacity: 1 - 0.2 * blurPx }}>Crop Recommendation</h1>
-                <h2 style={{ opacity: 1 - 0.2 * blurPx }}>Find the best crop for your farm based on soil & weather</h2>
+                <h1 style={{ opacity: 1 - 0.2 * blurPx }}>{t("cropRecommendation.title")}</h1>
+                <h2 style={{ opacity: 1 - 0.2 * blurPx }}>{t("cropRecommendation.subtitle")}</h2>
             </section>
 
             {/* Form */}
             <section className="prediction-section">
                 <div className="prediction-content">
                     <div className="section-header">
-                        <h2>Crop Recommendation Form</h2>
-                        <h3>Enter your soil and environmental parameters</h3>
+                        <h2>{t("cropRecommendation.formTitle")}</h2>
+                        <h3>{t("cropRecommendation.formSubtitle")}</h3>
                     </div>
 
                     <div className="prediction-grid">
@@ -155,7 +147,7 @@ export default function CropRecommendationPage() {
                             <div className="form-grid">
                                 {["N","P","K","temperature","humidity","ph","rainfall"].map((field) => (
                                     <div key={field} className="form-group">
-                                        <label className="form-label">{field}</label>
+                                        <label className="form-label">{t(`cropRecommendation.fields.${field}`)}</label>
                                         <input
                                             type="number"
                                             step="any"
@@ -163,7 +155,7 @@ export default function CropRecommendationPage() {
                                             value={formData[field]}
                                             onChange={handleChange}
                                             className="form-input"
-                                            placeholder={`Enter ${field}`}
+                                            placeholder={t(`cropRecommendation.fields.${field}`)}
                                         />
                                     </div>
                                 ))}
@@ -174,23 +166,21 @@ export default function CropRecommendationPage() {
                                 disabled={loading}
                                 className="predict-btn"
                             >
-                                {loading ? "Calculating..." : "Get Recommendation"}
+                                {loading ? t("cropRecommendation.loading") : t("cropRecommendation.getRecommendation")}
                             </button>
 
                             {prediction && (
                                 <div className="results-section">
                                     <div className="results-card">
-                                        <h3 className="form-title">Recommended Crop</h3>
+                                        <h3 className="form-title">{t("cropRecommendation.recommendedCrop")}</h3>
                                         <div className="results-stats">
-                                            <div className="stat-card stat-green">
-                                                {prediction}
-                                            </div>
+                                            <div className="stat-card stat-green">{prediction}</div>
                                         </div>
 
-                                        {summaryLoading && <p>Generating explanation…</p>}
+                                        {summaryLoading && <p>{t("cropRecommendation.generatingExplanation")}</p>}
                                         {summary && (
                                             <div className="summary-box">
-                                                <h4>Why this crop?</h4>
+                                                <h4>{t("cropRecommendation.whyThisCrop")}</h4>
                                                 <p>{summary}</p>
                                             </div>
                                         )}
@@ -202,19 +192,19 @@ export default function CropRecommendationPage() {
                         {/* Sidebar */}
                         <div className="sidebar">
                             <div className="weather-card">
-                                <h3 className="card-title">Current Weather</h3>
+                                <h3 className="card-title">{t("cropRecommendation.weatherTitle")}</h3>
                                 <div className="weather-item temp"><Thermometer size={20}/> {weatherData.temperature}°C</div>
-                                <div className="weather-item humidity"><Droplets size={20}/> {weatherData.humidity}% Humidity</div>
-                                <div className="weather-item rainfall"><Droplets size={20}/> {weatherData.rainfall} mm Rain</div>
-                                <div className="weather-item sunshine"><Wind size={20}/> {weatherData.windspeed} km/h Wind</div>
+                                <div className="weather-item humidity"><Droplets size={20}/> {weatherData.humidity}% {t("cropRecommendation.humidity")}</div>
+                                <div className="weather-item rainfall"><Droplets size={20}/> {weatherData.rainfall} mm {t("cropRecommendation.rain")}</div>
+                                <div className="weather-item sunshine"><Wind size={20}/> {weatherData.windspeed} km/h {t("cropRecommendation.wind")}</div>
                             </div>
 
                             {/* Quick Actions */}
                             <div className="actions-card">
-                                <h3 className="card-title">Quick Actions</h3>
-                                <button className="action-btn action-disease">Disease Detection</button>
-                                <button className="action-btn action-expert">Expert Consultation</button>
-                                <button className="action-btn action-market">Market Info</button>
+                                <h3 className="card-title">{t("cropRecommendation.quickActions")}</h3>
+                                <button className="action-btn action-disease">{t("cropRecommendation.diseaseDetection")}</button>
+                                <button className="action-btn action-expert">{t("cropRecommendation.expertConsultation")}</button>
+                                <button className="action-btn action-market">{t("cropRecommendation.marketInfo")}</button>
                             </div>
                         </div>
                     </div>
