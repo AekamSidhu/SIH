@@ -134,7 +134,7 @@ export default function CropDiseasePredictionPage() {
 
             setSummaryLoading(true);
             const prompt = `Summarize in 3-4 sentences: Explain what the disease "${pred.disease}" is,
-its typical impact on ${selectedCrop || t('diseasePrediction.form.general')}, and give a short actionable tip please note i dont have much technical knowledge based on ${symptoms}.`;
+its typical impact on ${selectedCrop || t('diseasePrediction.form.general')}, and give a short actionable tip please note i dont have much technical knowledge based on ${symptoms} also check if this disease can even happen to my crop .`;
 
             const geminiResp = await askGemini(prompt,i18n.language);
             setSummary(geminiResp);
