@@ -309,6 +309,11 @@ body {
 .modal.show {
     display: flex;
 }
+.close{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5%;
+}
 
 .modal-content {
     background-color: #fff;
@@ -317,6 +322,10 @@ body {
     width: 90%;
     max-width: 500px;
     animation: popup 0.3s ease-out;
+}
+.modal-content h3{
+    font-weight: 400;
+    font-size: 1.5rem;
 }
 
 .close {

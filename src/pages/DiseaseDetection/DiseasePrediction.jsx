@@ -295,7 +295,7 @@ its typical impact on ${selectedCrop || t('diseasePrediction.form.general')}, an
                                     </div>
                                 </div>
 
-                                {summaryLoading && <p>{t('diseasePrediction.summary.generating')}</p>}
+                                {summaryLoading && <p className={'gen'}>{t('diseasePrediction.summary.generating')}</p>}
                                 {summary && (
                                     <div className="summary-box">
                                         <h4>{t('diseasePrediction.summary.title')}</h4>

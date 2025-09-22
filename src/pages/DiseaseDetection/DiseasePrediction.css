@@ -320,4 +320,7 @@ body {
 .detail-item { margin-bottom: 6px; font-size: 14px; }
 .risk-item { color: #dc2626; }
 .recommendation-item { color: #16a34a; }
+.gen{
+    color: cornflowerblue;
+}
 
