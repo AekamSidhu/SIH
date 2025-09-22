@@ -161,7 +161,7 @@
     background-color: #16a34a;
     height: 190px;
     position: relative;
-    top: 250px;
+    top: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,4 +207,23 @@
   .about-content li, .home-main-content p {
     font-size: 1rem;
   }
+}
+.why{
+    background-color: white;
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #1a1a1a;
+    margin-top: 35vh;
+}
+.why h1{
+    position: relative;
+    font-weight: 400;
+}
+.why p{
+    width: 80%;
+    font-size: 1.1rem;
+    font-weight: 350;
 }

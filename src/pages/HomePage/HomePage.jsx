@@ -64,7 +64,25 @@ const HomePage = () => {
                             info={t("home.cards.expert.info")}
                         />
                     </div>
-
+                    <div className="why">
+                        <h1>
+                        Why This Matters
+                        </h1>
+                        <p>
+                        Kerala’s smallholder farmers face unique
+                        challenges—unpredictable weather, changing soil
+                        conditions, and limited access to timely, personalized
+                        advice. Traditional one-size-fits-all advisories can’t address
+                        each farm’s specific needs, and many farmers miss out on valuable
+                        insights or government benefits because records aren’t maintained.
+                        Krishi Sakhi bridges this gap by acting as a digital farming companion.
+                        It understands each farmer’s land, crops, and local conditions,
+                        offers real-time Malayalam voice or text guidance, tracks daily activities,
+                        and delivers proactive alerts—from weather warnings to market trends.
+                        By combining AI with local knowledge, Krishi Sakhi empowers farmers
+                        to make smarter decisions, improve yields, and build a more sustainable future.
+                        </p>
+                    </div>
                     <div className="stats">
                         <div className="stats-content">
                             <h1>10K+</h1>
